@@ -11,9 +11,8 @@ import requests
 from lyricsgenius import Genius
 
 
-def get_lyrics(token, artist='Led Zeppelin', save_path='lyrics.txt', min_year=None, max_year=None, max_songs=None,
-               remove_if_album_contains=None,
-               max_retries=5):
+def get_lyrics(token, artist, save_path='lyrics.txt', min_year=None, max_year=None, max_songs=None, max_retries=5,
+               remove_if_album_contains=None):
 
     genius = Genius(token)
     artist = genius.search_artist(artist, max_songs=0)
@@ -42,7 +41,7 @@ def get_lyrics(token, artist='Led Zeppelin', save_path='lyrics.txt', min_year=No
         is_valid_album = (not remove_if_album_contains or not any(
             [x.lower() in name.lower() for x in remove_if_album_contains]))
         if is_valid_year and is_valid_album:
-            logging.info(f"Year: {year}, Month: {month if month else ''} {name}")
+            logging.info(f"Year: {year}, Month: {month if month else ''} Title: {name}")
             real_albums.append({'id': album['id'], 'name': name, 'year': year})
 
     num_songs = 0

@@ -1,5 +1,5 @@
-data/
-checkpoint/
-models/
-samples/
+gpt2_lyrics/data/
+gpt2_lyrics/checkpoint/
+gpt2_lyrics/models/
+gpt2_lyrics/samples/
 .idea/

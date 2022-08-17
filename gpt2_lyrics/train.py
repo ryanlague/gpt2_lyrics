@@ -9,11 +9,11 @@ def train(training_text_filepath, gpt2_model_name='124M', max_epochs=1000, sampl
     # The name of the dataset we are fine-tuning on
     dataset_name = Path(training_text_filepath).stem
     # Where to save the model
-    model_dir = Path('gpt2_lyrics/models').joinpath(dataset_name)
+    model_dir = Path('models').joinpath(dataset_name)
 
     # Download the GPT-2 model (if necessary)
     # model_name is something like '124M' (see download_gpt2_model_docstring)
-    if not Path("gpt2_lyrics/models").joinpath(gpt2_model_name).exists():
+    if not Path("models").joinpath(gpt2_model_name).exists():
         print(f"Downloading {gpt2_model_name} model...")
         gpt2.download_gpt2(model_name=gpt2_model_name, model_dir=str(model_dir))
 
@@ -22,7 +22,7 @@ def train(training_text_filepath, gpt2_model_name='124M', max_epochs=1000, sampl
         raise Exception(f'{training_text_filepath} does not exist')
 
     # Where to save Checkpoint-related stuff
-    checkpoint_dir = Path('gpt2_lyrics/checkpoint').joinpath(dataset_name)
+    checkpoint_dir = Path('checkpoint').joinpath(dataset_name)
 
     # Do the Training
     sess = gpt2.start_tf_sess()
