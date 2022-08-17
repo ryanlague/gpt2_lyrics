@@ -5,7 +5,6 @@ from lyricsgenius import Genius
 # Get Lyrics
 
 genius_token = 'xyz'  # Replace 'xyz' with your token
-genius_token = 'c_ZYOMNLSa1mb6gn31CXQ89vYL948UtzzyS_o0oRvc92fIYjJJzLAopxgNjXOCVH'
 
 # Replace 'Green Day' with any artist you want
 # But if you change the artist,
