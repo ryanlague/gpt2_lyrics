@@ -7,10 +7,10 @@ import gpt_2_simple as gpt2
 
 def generate(model_name):
     # Where to save the model
-    model_dir = Path('models').joinpath(model_name)
+    model_dir = Path('gpt2_lyrics/models').joinpath(model_name)
 
     # Where to save Checkpoint-related stuff
-    checkpoint_dir = Path('checkpoint').joinpath(model_name)
+    checkpoint_dir = Path('gpt2_lyrics/checkpoint').joinpath(model_name)
 
     # Load the trained model
     sess = gpt2.start_tf_sess()
