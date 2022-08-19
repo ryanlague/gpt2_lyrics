@@ -17,7 +17,7 @@ def generate(model_name):
     gpt2.load_gpt2(sess, checkpoint_dir=checkpoint_dir, model_dir=model_dir)
 
     # Generate Lyrics!
-    gpt2.generate(sess, temperature=0.7, checkpoint_dir=str(checkpoint_dir), model_dir=str(model_dir))
+    gpt2.generate(sess, temperature=0.7, checkpoint_dir=str(checkpoint_dir), model_dir=str(model_dir), length=500)
 
 
 if __name__ == '__main__':
