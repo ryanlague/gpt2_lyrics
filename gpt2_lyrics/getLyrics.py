@@ -1,5 +1,6 @@
 
 # Built-In Python
+import os
 import typing
 from pathlib import Path
 import re
@@ -153,16 +154,14 @@ class GeniusApi:
         else:
             raise Exception(f'Unknown suffix for {save_path}')
 
+    def get_lyrics_by_artist(self, artist_name, save_path='lyrics.txt', min_year=None, max_year=None, max_retries=5,
+                             remove_if_album_title_contains=None):
+        artist = self.find_artist(artist_name, display_songs=0)
 
-def get_lyrics(token, artist_name, save_path='lyrics.txt', min_year=None, max_year=None, max_retries=5,
-               remove_if_album_title_contains=None):
-    genius_api = GeniusApi(token)
-    artist = genius_api.find_artist(artist_name, display_songs=0)
+        albums = self.get_artist_albums(artist.id, min_year, max_year, remove_if_album_title_contains)
 
-    albums = genius_api.get_artist_albums(artist.id, min_year, max_year, remove_if_album_title_contains)
-
-    lyrics = genius_api.get_album_lyrics(albums, max_retries=max_retries)
-    genius_api.save_lyrics(lyrics, save_path)
+        lyrics = self.get_album_lyrics(albums, max_retries=max_retries)
+        self.save_lyrics(lyrics, save_path)
 
 
 if __name__ == '__main__':
@@ -178,8 +177,13 @@ if __name__ == '__main__':
     parser.add_argument('-output_path', help='Save the lyrics to this filepath')
     args = parser.parse_args()
 
-    TOKEN = 'c_ZYOMNLSa1mb6gn31CXQ89vYL948UtzzyS_o0oRvc92fIYjJJzLAopxgNjXOCVH'
+    TOKEN = os.getenv('GENIUS_TOKEN')
+    if TOKEN is None:
+        raise Exception('Please set GENIUS_TOKEN environment variable to your Genius.com API token')
 
     out_path = args.output_path or f'data/lyrics/{args.artist}.txt'
-    get_lyrics(token=TOKEN, artist_name=args.artist, save_path=out_path, min_year=args.min_year, max_year=args.max_year,
-               remove_if_album_title_contains=args.album_filters)
+
+    genius_api = GeniusApi(TOKEN)
+    genius_api.get_lyrics_by_artist(artist_name=args.artist, save_path=out_path,
+                                    min_year=args.min_year, max_year=args.max_year,
+                                    remove_if_album_title_contains=args.album_filters)

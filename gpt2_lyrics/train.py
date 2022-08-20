@@ -35,7 +35,7 @@ def train(training_text_filepath, gpt2_model_name='124M', max_epochs=1000, sampl
 if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument('training_text_filepath', help='Path to .txt file containing training text')
-    parser.add_argument('-max_epochs', type=int, default=1000,
+    parser.add_argument('-max_epochs', type=int, default=500,
                         help='Stop after at most this many epochs have been completed (or the model has converged)')
     args = parser.parse_args()
     train(training_text_filepath=args.training_text_filepath, gpt2_model_name='124M', max_epochs=args.max_epochs)
